@@ -32,8 +32,22 @@ function getNextGif(gifs) {
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'pug')
 
+function pad(value) {
+  value = String(value);
+  if (value.length < 2) {
+    return "0" + value;
+  } else {
+    return value;
+  }
+}
+
+function timeStamp() {
+  var date = new Date(Date.now());
+  return `${+date.getDate()}/${+(date.getMonth()+1)}/${+date.getFullYear()}-${pad(+date.getHours())}:${pad(+date.getMinutes())}:${pad(+date.getSeconds())}`;
+}
+
 app.get('/', (req, res) => {
-  console.log("GET/: 200")
+  console.log(`[${timeStamp()}] GET/: 200`)
   res.render('index', {
     title: 'Cats-R-Us',
     message: 'Cats-R-Us',
@@ -43,7 +57,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-  console.log("GET/login: 200")
+  console.log(`[${timeStamp()}] GET/login: 200`)
   res.status(200).json({
     status: 200,
     message: "Successful login!"
