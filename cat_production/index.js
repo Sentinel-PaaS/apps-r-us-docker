@@ -33,12 +33,21 @@ app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'pug')
 
 app.get('/', (req, res) => {
+  console.log("GET/: 200")
   res.render('index', {
     title: 'Cats-R-Us',
     message: 'Cats-R-Us',
     //gif: getRandomGif(gifs)
     gif: getNextGif(gifs)
   })
+})
+
+app.get('/login', (req, res) => {
+  console.log("GET/login: 200")
+  res.status(200).json({
+    status: 200,
+    message: "Successful login!"
+  });
 })
 
 app.listen(port, () => {

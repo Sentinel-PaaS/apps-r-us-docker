@@ -1,4 +1,5 @@
 const express = require('express')
+const { restart } = require('nodemon')
 const app = express()
 const port = 5000
 const path = require('path')
@@ -33,12 +34,21 @@ app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'pug')
 
 app.get('/', (req, res) => {
+  console.log("GET/: 200")
   res.render('index', {
     title: 'Cats-R-Us',
     message: 'Cats-R-Us',
     //gif: getRandomGif(gifs)
     gif: getNextGif(gifs)
   })
+})
+
+app.get('/login', (req, res) => {
+  console.log("GET/login: 404")
+  res.status(404).json({
+    status: 404,
+    message: "Login page does not exist"
+  });
 })
 
 app.listen(port, () => {
